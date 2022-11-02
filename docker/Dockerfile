@@ -9,7 +9,8 @@ ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 
 # Bootstrap jenkins with the plugins we want to possibly use
 COPY --chown=jenkins:jenkins plugins.txt ${JENKINS_HOME}/plugins.txt
-RUN /usr/local/bin/install-plugins.sh < ${JENKINS_HOME}/plugins.txt
+#RUN /usr/local/bin/install-plugins.sh < ${JENKINS_HOME}/plugins.txt
+RUN jenkins-plugin-cli -f ${JENKINS_HOME}/plugins.txt
 
 # Jenkins will run all of the scripts in init.groovy.d at startup, so we can do helpful
 # things like install tools and create and run the seed job
